@@ -27,12 +27,9 @@ if (NOT GIT_HEAD OR NOT GIT_DESCRIBE)
     set(GIT_DESCRIBE "")
 endif()
 
-find_library(ZXCVBN_LIBRARIES zxcvbn)
-if(NOT ZXCVBN_LIBRARIES)
-  add_library(zxcvbn STATIC zxcvbn/zxcvbn.c)
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/zxcvbn)
-  set(ZXCVBN_LIBRARIES zxcvbn)
-endif(NOT ZXCVBN_LIBRARIES)
+add_library(zxcvbn STATIC zxcvbn/zxcvbn.c)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/zxcvbn)
+set(ZXCVBN_LIBRARIES zxcvbn)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 
@@ -183,7 +180,7 @@ if(UNIX AND NOT APPLE)
         gui/MainWindowAdaptor.cpp
         )
 endif()
-if(MINGW)
+if(MSVC OR MINGW)
     set(keepassx_SOURCES ${keepassx_SOURCES}
         core/ScreenLockListenerWin.h
         core/ScreenLockListenerWin.cpp
@@ -228,7 +225,7 @@ set(autotype_SOURCES
     autotype/test/AutoTypeTestInterface.h
 )
 
-if(MINGW)
+if(MSVC OR MINGW)
   set(keepassx_SOURCES_MAINEXE
       ${keepassx_SOURCES_MAINEXE}
       ${CMAKE_SOURCE_DIR}/share/windows/icon.rc)
@@ -271,11 +268,11 @@ endif()
 if (UNIX AND NOT APPLE)
     target_link_libraries(keepassx_core Qt5::DBus)
 endif()
-if(MINGW)
+if(MSVC OR MINGW)
     target_link_libraries(keepassx_core Wtsapi32.lib)
 endif()
 
-if(MINGW)
+if(MSVC OR MINGW)
   include(GenerateProductVersion)
   generate_product_version(
     WIN32_ProductVersionFiles
@@ -324,7 +321,7 @@ install(TARGETS ${PROGNAME}
       BUNDLE DESTINATION . COMPONENT Runtime
       RUNTIME DESTINATION ${BIN_INSTALL_DIR} COMPONENT Runtime)
 
-if(MINGW)
+if(MSVC OR MINGW)
   if(${CMAKE_SIZEOF_VOID_P} EQUAL "8")
     set(OUTPUT_FILE_POSTFIX "Win64")
   else()

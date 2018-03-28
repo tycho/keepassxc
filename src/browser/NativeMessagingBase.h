@@ -30,7 +30,9 @@
 #include <QLocalSocket>
 #include <QAtomicInteger>
 #include <iostream>
+#ifndef Q_OS_WIN
 #include <unistd.h>
+#endif
 
 class NativeMessagingBase : public QObject
 {

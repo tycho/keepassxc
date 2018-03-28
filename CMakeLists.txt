@@ -242,7 +242,7 @@ if(MINGW)
   endif()
 endif()
 
-if(APPLE AND WITH_APP_BUNDLE OR MINGW)
+if(APPLE AND WITH_APP_BUNDLE OR MSVC OR MINGW)
   set(PROGNAME KeePassXC)
 else()
   set(PROGNAME keepassxc)
@@ -253,7 +253,7 @@ if(APPLE AND WITH_APP_BUNDLE AND "${CMAKE_INSTALL_PREFIX}" STREQUAL "/usr/local"
   set(CMAKE_INSTALL_MANDIR "/usr/local/share/man")
 endif()
 
-if(MINGW)
+if(MSVC OR MINGW)
   set(CLI_INSTALL_DIR    ".")
   set(PROXY_INSTALL_DIR  ".")
   set(BIN_INSTALL_DIR    ".")

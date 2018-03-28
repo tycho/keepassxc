@@ -87,6 +87,8 @@ elseif (WIN32)
             #error ARCH_VALUE x86_32
             #elif defined _M_X64
             #error ARCH_VALUE x86_64
+            #elif defined _M_ARM64
+            #error ARCH_VALUE arm64
             #endif
             #error ARCH_VALUE unknown
         ]=])
@@ -100,6 +102,8 @@ elseif (WIN32)
             string(APPEND _PLATFORM_PATH "Win32")
         elseif(_TARGET_ARCH STREQUAL "x86_64")
             string(APPEND _PLATFORM_PATH "x64")
+        elseif(_TARGET_ARCH STREQUAL "arm64")
+            string(APPEND _PLATFORM_PATH "arm64")
         else()
             message(FATAL_ERROR "the ${_TARGET_ARCH} architecture is not supported by Findsodium.cmake.")
         endif()

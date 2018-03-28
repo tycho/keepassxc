@@ -24,7 +24,7 @@
     This is to avoid link-time definition clashes with libsodium on Windows.
  */
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN) && !defined(_MSC_VER)
 #define argon2_hash libargon2_argon2_hash
 #define argon2_error_message libargon2_argon2_error_message
 #endif
