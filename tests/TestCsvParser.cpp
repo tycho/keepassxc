@@ -30,7 +30,7 @@ void TestCsvParser::initTestCase()
 void TestCsvParser::init()
 {
     file.reset(new QTemporaryFile());
-    if (not file->open())
+    if (!file->open())
         QFAIL("Cannot open file!");
     parser->setBackslashSyntax(false);
     parser->setComment('#');
