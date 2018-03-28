@@ -200,10 +200,6 @@ add_feature_info(KeePassXC-Browser WITH_XC_BROWSER "Browser integration with Kee
 add_feature_info(SSHAgent WITH_XC_SSHAGENT "SSH agent integration compatible with KeeAgent")
 add_feature_info(YubiKey WITH_XC_YUBIKEY "YubiKey HMAC-SHA1 challenge-response")
 
-if(WITH_XC_NETWORKING)
-  find_package(CURL REQUIRED)
-endif()
-
 set(BROWSER_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/browser)
 add_subdirectory(browser)
 add_subdirectory(proxy)
